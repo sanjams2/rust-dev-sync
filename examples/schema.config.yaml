@@ -1,0 +1,69 @@
+---
+# Global options relevant to all workspace and syncers. All global config is optional.
+global_config:
+  # List of files to ignore across workspaces. Uses glob form
+  ignore:
+    - file3
+    - "*/file4"
+  # Global options for all Rsync syncers
+  rsync:
+    # Global SSH configuration used by Rsync
+    ssh:
+      # List of SSH options. See https://www.ssh.com/academy/ssh/command
+      options:
+        - PasswordAuthentication: false
+        - ServerAliveInterval: 5
+        - ServerAliveCountMax: 2
+        - ConnectTimeout: 10
+        - ControlMaster: "auto"
+        - ControlPersist: "30m"
+        - ControlPath: "GENERATE"
+        - IdentityFile: "~/.ssh/secret.pem"
+    # Default remote host that workspaces should be synced to when using Rsync syncer
+    default_dst_host: sanjams.host.com
+    # List of files for Rsync to exclude when syncing. Can be in glob form.
+    excludes:
+      - build
+      - logs
+    # List of Rsync Flags to use globally across all Rsync syncers. See: https://linux.die.net/man/1/rsync
+    flags:
+      - Recursive
+      - IncludeLinks
+      - PreservePermissions
+      - PreserveModTimes
+      - Compress
+      - Verbose
+      - DeleteAfter
+# List of workspaces to apply syncers to
+workspaces:
+    # Workspaces source directory
+  - src_dir: /tmp/localdir3
+    # List of syncers for a particular workspace
+    syncers:
+        # Syncer Type
+      - type: rsync
+        # Destination host for this workspace. Overrides global default. This is optional
+        dst_host: sanjams.host.com
+        # Destination directory to sync workspace to
+        dst_dir: /tmp/remotedir4
+        # List of additional Rsync flags to use when syncing. This is optional
+        additional_flags:
+          # See global Rsync flags above for list of all flags
+          - DeleteAfter
+        # List of additional files to exclude when running Rsync. Can be in glob form. This is optional
+        additional_excludes:
+          - etc
+        # Additional SSH configuration specific for this syncer in this workspace. This is optional
+        ssh:
+          # List of additional SSH options specific for this syncer in this workspace. This is optional
+          additional_options:
+            # See global SSH options above for list of all options
+            - ConnectTimeout: 10
+    # List of additional files to ignore for this workspace. Uses glob form. This is optional
+    ignore:
+      - file1
+  # An example of using Rsync to sync to local directory
+  - src_dir: /tmp/localdir4
+    syncers:
+      - type: rsync
+        dst_dir: /tmp/localdir5
