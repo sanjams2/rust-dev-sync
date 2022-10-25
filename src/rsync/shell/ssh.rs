@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::EnumString;
 
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Clone, Deserialize, Serialize, EnumString)]
 pub enum SSHOption {
     PasswordAuthentication(bool),
     ServerAliveInterval(i32),
@@ -47,6 +48,7 @@ impl Drop for SSHOption {
     }
 }
 
+#[derive(Debug)]
 pub struct SSHShell {
     pub options: Vec<SSHOption>,
 }

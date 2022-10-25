@@ -25,6 +25,6 @@ The application uses a config file for storing which local paths to sync, what t
 The config file has a basic schema that can be understood better by looking at the [example](examples/schema.config.yaml).
 
 ### TODO:
-- Add subcommand for modifying config file
+- Implement subcommands for modifying config file
 - Beef up testing
 - Add block storage syncers

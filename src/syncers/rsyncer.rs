@@ -14,6 +14,7 @@ use crate::rsync::cli::{RsyncFlag, RsyncOption};
 use crate::rsync::shell::ssh::{SSHOption, SSHShell};
 use crate::syncers::{Result as SyncerResult, Syncer};
 
+#[derive(Debug)]
 pub struct Rsyncer {
     dst_dir: String,
     dst_host: Option<String>,
@@ -101,7 +102,7 @@ impl SSHProperties {
     }
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct RsyncProperties {
     dst_host: Option<String>,
     dst_dir: String,
@@ -118,7 +119,7 @@ pub struct RsyncGlobalProperties {
     ssh: Option<SSHProperties>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct SSHAdditionalProperties {
     additional_options: Option<Vec<SSHOption>>,
 }

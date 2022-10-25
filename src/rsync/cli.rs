@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum_macros::EnumString;
 
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Clone, Deserialize, Serialize, EnumString)]
 pub enum RsyncFlag {
     Recursive,
     IncludeLinks,
@@ -25,7 +26,7 @@ impl RsyncFlag {
     }
 }
 
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Clone, Deserialize, Serialize, EnumString)]
 pub enum RsyncOption {
     Exclude(String),
 }
